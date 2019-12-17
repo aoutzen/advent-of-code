@@ -33,29 +33,26 @@
 
 import os
 
-def openFileFromSameDirectory(filename):
+def open_file_from_same_directory(filename):
     cur_dir = os.path.dirname(__file__)
     input_path = os.path.join(cur_dir, filename)
     input_file = open(input_path)
     return input_file
 
-# def calculateFuelReq(mass):
-#     return int(mass / 3) - 2
-
-def calculateFuelReqRec(mass):
-    currMassFuelReq = int(mass / 3) - 2
-    if currMassFuelReq <= 0:
+def calculate_fuel_req_rec(mass):
+    curr_mass_fuel_req = int(mass / 3) - 2
+    if curr_mass_fuel_req <= 0:
         return 0
     else:
-        return currMassFuelReq + calculateFuelReqRec(currMassFuelReq)
+        return curr_mass_fuel_req + calculate_fuel_req_rec(curr_mass_fuel_req)
 
-def calculateTotalFuelReq(input_file_name):
-    input_file = openFileFromSameDirectory(input_file_name)
+def calculate_total_fuel_req(input_file_name):
+    input_file = open_file_from_same_directory(input_file_name)
     total_fuel = 0
     for line in input_file:
         mass = float(line.strip())
-        total_fuel += calculateFuelReqRec(mass)
+        total_fuel += calculate_fuel_req_rec(mass)
     
     return total_fuel
 
-print("Total inputs for the Fuel Counter-Upper: " + str(calculateTotalFuelReq("day-01-input.txt")))
+print("Total inputs for the Fuel Counter-Upper: " + str(calculate_total_fuel_req("day-01-input.txt")))
