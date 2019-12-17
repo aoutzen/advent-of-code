@@ -39,15 +39,22 @@ def openFileFromSameDirectory(filename):
     input_file = open(input_path)
     return input_file
 
-def calculateFuelReq(mass):
-    return int(mass / 3) - 2
+# def calculateFuelReq(mass):
+#     return int(mass / 3) - 2
+
+def calculateFuelReqRec(mass):
+    currMassFuelReq = int(mass / 3) - 2
+    if currMassFuelReq <= 0:
+        return 0
+    else:
+        return currMassFuelReq + calculateFuelReqRec(currMassFuelReq)
 
 def calculateTotalFuelReq(input_file_name):
     input_file = openFileFromSameDirectory(input_file_name)
     total_fuel = 0
     for line in input_file:
         mass = float(line.strip())
-        total_fuel += calculateFuelReq(mass)
+        total_fuel += calculateFuelReqRec(mass)
     
     return total_fuel
 
